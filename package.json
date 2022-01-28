@@ -1,5 +1,5 @@
 {
-  "name": "service-example",
+  "name": "spreadsheet-event-broadcaster",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
