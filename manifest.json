@@ -17,13 +17,6 @@
   "credentialType": "absolute",
   "policies": [
     {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "httpstat.us",
-        "path": "*"
-      }
-    },
-    {
       "name": "colossus-fire-event"
     },
     {
