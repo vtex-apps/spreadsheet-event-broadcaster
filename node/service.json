@@ -6,9 +6,17 @@
   "maxReplicas": 4,
   "workers": 1,
   "routes": {
-    "spreadsheetEventBroadcaster": {
-      "path": "/_v/spreadsheetEventBroadcaster",
-      "public": true
+    "notify": {
+      "path": "/notify",
+      "public": false,
+      "access": "authorized",
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": ["post"],
+          "principals": ["vrn:apps:*:{{account}}:{{workspace}}:app/*.*@*"]
+        }
+      ]
     }
   }
 }
