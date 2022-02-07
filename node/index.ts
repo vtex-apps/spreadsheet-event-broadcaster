@@ -2,6 +2,9 @@ import type { ClientsConfig, ServiceContext, RecorderState } from '@vtex/api'
 import { method, Service } from '@vtex/api'
 
 import { Clients } from './clients'
+import { throttle } from './middlewares/notify/throttle'
+import { parseFile } from './middlewares/notify/parseFile'
+import { startEventChain } from './middlewares/notify/startEventChain'
 
 const TIMEOUT_MS = 800
 
@@ -19,15 +22,16 @@ declare global {
   type Context = ServiceContext<Clients, State>
 
   interface State extends RecorderState {
-    code: number
+    payload: unknown[]
+    appId?: string
   }
 }
 
 export default new Service({
   clients,
   routes: {
-    spreadsheetEventBroadcaster: method({
-      POST: [],
+    notify: method({
+      POST: [throttle, parseFile, startEventChain],
     }),
   },
 })
