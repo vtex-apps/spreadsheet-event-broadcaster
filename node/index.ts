@@ -2,7 +2,6 @@ import type { ClientsConfig, ServiceContext, RecorderState } from '@vtex/api'
 import { method, Service } from '@vtex/api'
 
 import { Clients } from './clients'
-import { throttle } from './middlewares/notify/throttle'
 import { parseFile } from './middlewares/notify/parseFile'
 import { startEventChain } from './middlewares/notify/startEventChain'
 
@@ -23,7 +22,7 @@ declare global {
 
   interface State extends RecorderState {
     payload: unknown[]
-    appId?: string
+    appId: string
   }
 }
 
@@ -31,7 +30,7 @@ export default new Service({
   clients,
   routes: {
     notify: method({
-      POST: [throttle, parseFile, startEventChain],
+      POST: [parseFile, startEventChain],
     }),
   },
 })

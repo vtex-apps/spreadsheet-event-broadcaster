@@ -1,5 +1,7 @@
 import { v4 as uuid } from 'uuid'
 
+import { APP_ID as thisAppId } from '../../utils/constants'
+
 export async function startEventChain(ctx: Context) {
   const {
     state: { payload, appId: clientAppId },
@@ -7,8 +9,6 @@ export async function startEventChain(ctx: Context) {
   } = ctx
 
   const eventId = uuid()
-
-  const thisAppId = process.env.VTEX_APP_ID ?? ''
 
   events.sendEvent(thisAppId, 'spreadsheet.event.broadcast', {
     eventId,
