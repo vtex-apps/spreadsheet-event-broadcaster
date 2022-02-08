@@ -1,11 +1,12 @@
-import asyncBusboy from 'async-busboy'
 import { buffer } from 'get-stream'
 import { read, utils } from 'xlsx'
 
+import type { NotifyInputParameters } from '../../typings/notify'
 import {
   MAXIMUM_FILE_SIZE,
   MAXIMUM_FILE_SIZE_STRING,
 } from '../../utils/constants'
+import { asyncBusboyWrapper } from '../../utils/parsing'
 
 export async function parseFile(ctx: Context, next: () => Promise<unknown>) {
   const {
@@ -16,7 +17,7 @@ export async function parseFile(ctx: Context, next: () => Promise<unknown>) {
   const {
     fields: { appId },
     files: [file],
-  } = await asyncBusboy(req)
+  } = await asyncBusboyWrapper<NotifyInputParameters>(req)
 
   if (!file) {
     const errorMessage = 'No file was sent'
@@ -54,7 +55,7 @@ export async function parseFile(ctx: Context, next: () => Promise<unknown>) {
     const payload = utils.sheet_to_json(sheet)
 
     ctx.state.payload = payload
-    ctx.state.appId = (appId as string) ?? ''
+    ctx.state.appId = appId ?? ''
   } catch (error) {
     logger.error(error.message)
 
