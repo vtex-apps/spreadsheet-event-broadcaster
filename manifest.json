@@ -1,7 +1,7 @@
 {
   "name": "spreadsheet-event-broadcaster",
   "vendor": "vtex",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "title": "Spreadsheet Event Broadcaster",
   "description": "This service reads a spreadsheet from a file (.csv, .xls, .xlsx) and broadcasts an event for each row in the sheet.",
   "mustUpdateAt": "2018-01-04",
