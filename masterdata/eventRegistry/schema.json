@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Event Registry",
+  "type": "object",
+  "properties": {
+    "hasBeenProcessed": {
+      "type": "boolean"
+    }
+  },
+  "required": ["hasBeenProcessed"],
+  "v-cache": false
+}
