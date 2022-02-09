@@ -1,6 +1,9 @@
 import { v4 as uuid } from 'uuid'
 
-import { APP_ID as thisAppId } from '../../utils/constants'
+import {
+  APP_ID as thisAppId,
+  EVENT_CHAIN_KEY as eventKey,
+} from '../../utils/constants'
 
 export async function startEventChain(ctx: Context) {
   const {
@@ -10,7 +13,7 @@ export async function startEventChain(ctx: Context) {
 
   const eventId = uuid()
 
-  events.sendEvent(thisAppId, 'spreadsheet.event.broadcast', {
+  events.sendEvent(thisAppId, eventKey, {
     eventId,
     payload,
     clientAppId,

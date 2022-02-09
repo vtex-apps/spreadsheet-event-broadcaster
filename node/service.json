@@ -1,7 +1,7 @@
 {
   "memory": 256,
   "ttl": 10,
-  "timeout": 2,
+  "timeout": 30,
   "minReplicas": 2,
   "maxReplicas": 4,
   "workers": 1,
@@ -17,6 +17,12 @@
           "principals": ["vrn:apps:*:{{account}}:{{workspace}}:app/*.*@*"]
         }
       ]
+    }
+  },
+  "events": {
+    "eventBroadcaster": {
+      "sender": "vtex.spreadsheet-event-broadcaster",
+      "keys": ["event.chain"]
     }
   }
 }
