@@ -19,7 +19,7 @@
     "@vtex/test-tools": "^1.0.0",
     "@vtex/tsconfig": "^0.5.6",
     "typescript": "3.9.7",
-    "vtex.spreadsheet-event-broadcaster": "https://dropper--sandboxbrdev.myvtex.com/_v/private/typings/linked/v1/vtex.spreadsheet-event-broadcaster@0.1.0+build1644442090/public/@types/vtex.spreadsheet-event-broadcaster"
+    "vtex.spreadsheet-event-broadcaster": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.spreadsheet-event-broadcaster@0.1.0/public/_types/react"
   },
   "scripts": {
     "lint": "tsc --noEmit --pretty"
