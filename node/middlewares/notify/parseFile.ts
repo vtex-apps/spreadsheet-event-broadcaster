@@ -6,7 +6,7 @@ import {
   MAXIMUM_FILE_SIZE,
   MAXIMUM_FILE_SIZE_STRING,
 } from '../../utils/constants'
-import { asyncBusboyWrapper } from '../../utils/parsing'
+import { asyncBusboyWrapper, senderAppIdFromHeaders } from '../../utils/parsing'
 
 export async function parseFile(ctx: Context, next: () => Promise<unknown>) {
   const {
@@ -14,8 +14,10 @@ export async function parseFile(ctx: Context, next: () => Promise<unknown>) {
     vtex: { logger },
   } = ctx
 
+  const senderAppId = senderAppIdFromHeaders(req.headers)
+
   const {
-    fields: { appId },
+    fields: { appId: clientAppId },
     files: [file],
   } = await asyncBusboyWrapper<NotifyInputParameters>(req)
 
@@ -55,7 +57,8 @@ export async function parseFile(ctx: Context, next: () => Promise<unknown>) {
     const payload = utils.sheet_to_json(sheet)
 
     ctx.state.payload = payload
-    ctx.state.appId = appId ?? ''
+    ctx.state.senderAppId = senderAppId
+    ctx.state.clientAppId = clientAppId ?? ''
   } catch (error) {
     logger.error(error.message)
 

@@ -13,7 +13,7 @@ export async function splitPayload(
 ) {
   const {
     clients: { events },
-    body: { payload, clientAppId },
+    body: { payload, senderAppId, clientAppId },
   } = ctx
 
   if (payload.length > ARRAY_SIZE_TARGET) {
@@ -27,6 +27,7 @@ export async function splitPayload(
       events.sendEvent(thisAppId, eventKey, {
         eventId,
         payload: chunk,
+        senderAppId,
         clientAppId,
       })
     }

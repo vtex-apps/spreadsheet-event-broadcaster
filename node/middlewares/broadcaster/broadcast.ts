@@ -6,12 +6,13 @@ export async function broadcast(
 ) {
   const {
     clients: { events },
-    body: { payload, clientAppId },
+    body: { payload, senderAppId, clientAppId },
   } = ctx
 
   payload.forEach((row) => {
     events.sendEvent(clientAppId, eventKey, {
       data: row,
+      senderAppId,
     })
   })
 

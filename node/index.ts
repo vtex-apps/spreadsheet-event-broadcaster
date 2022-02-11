@@ -30,13 +30,15 @@ declare global {
 
   interface State extends RecorderState {
     payload: unknown[]
-    appId: string
+    senderAppId: string
+    clientAppId: string
   }
 
   interface BroadcasterEventContext extends EventContext<Clients> {
     body: {
       eventId: string
       payload: unknown[]
+      senderAppId: string
       clientAppId: string
     }
   }

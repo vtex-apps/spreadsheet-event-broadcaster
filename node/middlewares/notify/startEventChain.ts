@@ -7,7 +7,7 @@ import {
 
 export async function startEventChain(ctx: Context) {
   const {
-    state: { payload, appId: clientAppId },
+    state: { payload, senderAppId, clientAppId },
     clients: { events },
   } = ctx
 
@@ -16,6 +16,7 @@ export async function startEventChain(ctx: Context) {
   events.sendEvent(thisAppId, eventKey, {
     eventId,
     payload,
+    senderAppId,
     clientAppId,
   })
 
