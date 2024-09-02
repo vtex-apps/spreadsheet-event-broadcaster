@@ -6,7 +6,7 @@ import {
   MAXIMUM_FILE_SIZE,
   MAXIMUM_FILE_SIZE_STRING,
 } from '../../utils/constants'
-import { asyncBusboyWrapper, senderAppIdFromHeaders } from '../../utils/parsing'
+import { busboyWrapper, senderAppIdFromHeaders } from '../../utils/parsing'
 
 export async function parseFile(ctx: Context, next: () => Promise<unknown>) {
   const {
@@ -16,38 +16,37 @@ export async function parseFile(ctx: Context, next: () => Promise<unknown>) {
 
   const senderAppId = senderAppIdFromHeaders(req.headers)
 
-  const {
-    fields: { appId: clientAppId },
-    files: [file],
-  } = await asyncBusboyWrapper<NotifyInputParameters>(req)
-
-  if (!file) {
-    const errorMessage = 'No file was sent'
-
-    logger.error(errorMessage)
-
-    ctx.status = 400
-    ctx.message = errorMessage
-
-    return
-  }
-
-  const bufferedStream = await buffer(file, {
-    maxBuffer: MAXIMUM_FILE_SIZE,
-  }).catch(() => {
-    const errorMessage = `Input file cannot be larger than ${MAXIMUM_FILE_SIZE_STRING}`
-
-    logger.error(errorMessage)
-
-    ctx.status = 413
-    ctx.message = errorMessage
-  })
-
-  if (!bufferedStream) {
-    return
-  }
-
   try {
+    const {
+      fields: { appId: clientAppId },
+      files: [file],
+    } = await busboyWrapper<NotifyInputParameters>(req)
+
+    if (!file) {
+      const errorMessage = 'No file was sent'
+
+      logger.error(errorMessage)
+
+      ctx.status = 400
+      ctx.message = errorMessage
+
+      return
+    }
+
+    const bufferedStream = await buffer(file, {
+      maxBuffer: MAXIMUM_FILE_SIZE,
+    }).catch(() => {
+      const errorMessage = `Input file cannot be larger than ${MAXIMUM_FILE_SIZE_STRING}`
+
+      logger.error(errorMessage)
+
+      ctx.status = 413
+      ctx.message = errorMessage
+    })
+
+    if (!bufferedStream) {
+      return
+    }
     const workbook = read(bufferedStream)
 
     const [sheetName] = workbook.SheetNames
@@ -65,7 +64,7 @@ export async function parseFile(ctx: Context, next: () => Promise<unknown>) {
     ctx.status = 500
     ctx.message = error.message
 
-    return
+    throw new Error(error)
   }
 
   await next()
