@@ -13,7 +13,7 @@ import { verifyUniqueness } from './middlewares/broadcaster/verifyUniqueness'
 import { parseFile } from './middlewares/notify/parseFile'
 import { startEventChain } from './middlewares/notify/startEventChain'
 
-const TIMEOUT_MS = 800
+const TIMEOUT_MS = 6000
 
 const clients: ClientsConfig<Clients> = {
   implementation: Clients,
