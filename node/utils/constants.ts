@@ -14,4 +14,6 @@ export const MAXIMUM_FILE_SIZE_STRING = '1GB'
 
 export const ARRAY_SIZE_TARGET = 1000
 
+export const ARRAY_SIZE_PAYLOAD = 5000
+
 export const ARRAY_SPLIT_FACTOR = 100
