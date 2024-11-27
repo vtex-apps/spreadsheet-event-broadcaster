@@ -25,6 +25,14 @@ export async function startEventChain(ctx: Context) {
         clientAppId,
       })
     }
+  } else {
+    const eventId = uuid()
+    events.sendEvent(thisAppId, eventKey, {
+      eventId,
+      payload,
+      senderAppId,
+      clientAppId,
+    })
   }
 
   ctx.status = 200

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix bug with send event. Update to @vtex/api@6.48.0 
+
 ## [0.2.2] - 2024-11-14
 
 ### Fixed
